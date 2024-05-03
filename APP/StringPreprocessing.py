@@ -1,5 +1,4 @@
 from collections import Counter, defaultdict, OrderedDict
-from queue import Queue, PriorityQueue, LifoQueue, SimpleQueue, SimpleStack
 from bs4 import BeautifulSoup
 from sklearn.base import BaseEstimator, TransformerMixin
 from nltk.tokenize import word_tokenize, sent_tokenize
@@ -88,7 +87,7 @@ class KMPSearch:
         for i in range(n + 1):
             ret[i] += 1
         return ret
-
+import streamlit as st
 
 class text_processing(BaseEstimator, TransformerMixin):
     def __init__(
@@ -128,13 +127,21 @@ class text_processing(BaseEstimator, TransformerMixin):
         return self
 
     # for converting the text to lower case
+    def __convert_text_lower(self, text):
+        text = text.lower()
+        return text
+
     def __lower_text(self, X):
-        X = X.apply(lambda x: x.lower())
+        X = X.apply(self.__convert_text_lower)
         return X
 
     # for converting the text to upper case
+    def __convert_text_upper(self, text):
+        text = text.upper()
+        return text
+
     def __upper_text(self, X):
-        X = X.apply(lambda x: x.upper())
+        X = X.apply(self.__convert_text_upper)
         return X
 
     # for converting the text to words
